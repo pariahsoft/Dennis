@@ -27,14 +27,14 @@ def connect(S): # Connect to server.
 		try:
 			S.connect((conf["server"][0], conf["server"][1]))
 			S.setblocking(0)
-			S.send('NICK '+conf["nick"]+'\n')
+			S.send('NICK '+conf["nick"]+'\r\n')
 			if receive(S, 1) == "BADNICK": # Nick is in use.
 				print "[{0}] Nickname \"{1}\" is in use.".format(int(time.time()), conf["nick"])
 				S.close()
 				return False
 			if conf["server"][2]: # Server has a password.
-				S.send('PASS {0}\n'.format(conf["server"][2]))
-			S.send('USER {0} 8 * :{1}\n'.format(conf["user"], conf["real"]))
+				S.send('PASS {0}\r\n'.format(conf["server"][2]))
+			S.send('USER {0} 8 * :{1}\r\n'.format(conf["user"], conf["real"]))
 			return True # We were able to connect.
 		except socket.error:
 			return False
@@ -59,12 +59,12 @@ def receive(S, opt = 0): # Receive data.
 						ret = "BADNICK"
 				elif line.split(' ')[1] == "002": # We're connected.
 					print "[{0}] Connected successfully.".format(int(time.time()))
-					S.send('MODE {0} +B\n'.format(conf["nick"]))
+					S.send('MODE {0} +B\r\n'.format(conf["nick"]))
 					if conf["nickpass"]:
-						S.send('PRIVMSG NICKSERV :IDENTIFY {0}\n'.format(conf["nickpass"])) #Identify with nickserv.
+						S.send('PRIVMSG NICKSERV :IDENTIFY {0}\r\n'.format(conf["nickpass"])) #Identify with nickserv.
 					for chan in conf["channels"]: # Join channels.
 						if len(chan):
-							S.send('JOIN {0} {1}\n'.format(chan[0], chan[1]))
+							S.send('JOIN {0} {1}\r\n'.format(chan[0], chan[1]))
 							print "[{0}] Joined channel \"{1}\".".format(int(time.time()), chan[0])
 				else:
 					process(S, line)
@@ -77,7 +77,7 @@ def receive(S, opt = 0): # Receive data.
 def process(S, line):
 	if line[0:4] == 'PING': # Ping received.
 		print "[{0}] Received ping from server.".format(int(time.time()))
-		S.send('PONG {0}\n'.format(line[5:])) # Respond with pong.
+		S.send('PONG {0}\r\n'.format(line[5:])) # Respond with pong.
 
 	dennis.process(S, DB, line, conf["nick"]) # Start Dennis.
 

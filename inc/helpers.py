@@ -37,7 +37,7 @@ def goodname(name):
 
 # Send a message to a player.
 def send(S, sender, mesg):
-	S.send("PRIVMSG {0} :{1}\n".format(sender, mesg))
+	S.send("PRIVMSG {0} :{1}\r\n".format(sender, mesg))
 
 # Check if player is signed in.
 def online(DB, player):
