@@ -49,7 +49,7 @@ help = [
 	["version", "version", "Print bot info and version."],
 ]
 
-### ADVENTURE FUNCTIONS ###
+### Adventure Functions ###
 
 ## CONSOLE INPUT PROCESSOR ##
 
@@ -83,45 +83,11 @@ def process(S, DB, line, nick):
 			if cmd[0].lower() != "join":
 				print "[{0}] <{1}> :: {2}".format(int(time.time()), sender, msgpart.rstrip())
 
-			if cmd[0].lower() == "help":
-				C_HELP(S, DB, sender.lower(), cmd[1:])
-			elif cmd[0].lower() == "join":
-				C_JOIN(S, DB, sender.lower(), cmd[1:])
-			elif cmd[0].lower() == "version":
-				C_VERSION(S, DB, sender.lower(), cmd[1:])
+			if cmd[0].lower() in CH_OFFLINE: # Offline Commands
+				CH_OFFLINE[cmd[0].lower()](S, DB, sender.lower(), cmd[1:])
 			elif online(DB, sender.lower()): # Online Commands
-				if cmd[0].lower() == "quit":
-					C_QUIT(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "say":
-					C_SAY(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "shout":
-					C_SHOUT(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "roll":
-					C_ROLL(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "me":
-					C_ME(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "look":
-					C_LOOK(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "go":
-					C_GO(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "list":
-					C_LIST(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "self":
-					C_SELF(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "mkroom":
-					C_MKROOM(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "room":
-					C_ROOM(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "exit":
-					C_EXIT(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "mkitem":
-					C_MKITEM(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "item":
-					C_ITEM(S, DB, sender.lower(), cmd[1:])
-				elif cmd[0].lower() == "tp":
-					C_TP(S, DB, sender.lower(), cmd[1:])
-				else:
-					C_HELP(S, DB, sender.lower(), ["help"])
+				if cmd[0].lower() in CH_ONLINE:
+					CH_ONLINE[cmd[0].lower()](S, DB, sender.lower(), cmd[1:])
 			else:
 				send(S, sender, "No such command or you must join first.")
 
@@ -693,4 +659,29 @@ def C_VERSION(S, DB, sender, args):
 
 	for line in vmsg:
 		send(S, sender, line)
-	
+
+### Command Hooks ###
+
+CH_OFFLINE = { # Offline Commands
+	"help": C_HELP,
+	"join": C_JOIN,
+	"version": C_VERSION
+}
+
+CH_ONLINE = { # Online Commands
+	"quit": C_QUIT,
+	"say": C_SAY,
+	"shout": C_SHOUT,
+	"roll": C_ROLL,
+	"me": C_ME,
+	"look": C_LOOK,
+	"go": C_GO,
+	"list": C_LIST,
+	"self": C_SELF,
+	"mkroom": C_MKROOM,
+	"room": C_ROOM,
+	"exit": C_EXIT,
+	"mkitem": C_MKITEM,
+	"item": C_ITEM,
+	"tp": C_TP
+}
