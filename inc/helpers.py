@@ -23,15 +23,10 @@ badnamechars = "{}[]<>()|\\*"
 
 # Check if a player name is allowed.
 def goodname(name):
-	if len(name) > maxname:
-		return False
-	if len(name) < minname:
+	if len(name) > maxname or len(name) < minname:
 		return False
 	for char in name:
-		if not char in allowednamechars:
-			return False
-	for char in name:
-		if char in badnamechars:
+		if not char in allowednamechars or char in badnamechars:
 			return False
 	return True
 
