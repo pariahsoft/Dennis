@@ -12,7 +12,7 @@ from helpers import *
 VERSION = [
 	"{0} {1}\nBy {2}\n{3} {4} {5}",
 	"Adventure Bot \"Dennis\"",
-	"Pre-Alpha",
+	"Alpha",
 	"Michael D. Reiley",
 	"Copyright (c) 2012",
 	"Omega Software Development Group",
