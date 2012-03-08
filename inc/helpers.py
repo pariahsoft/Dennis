@@ -55,13 +55,12 @@ def roomstat(DB, room):
 	name = get(DB, "SELECT name FROM rooms WHERE id='{0}'".format(room))[0][0]
 	desc = get(DB, "SELECT desc FROM rooms WHERE id='{0}'".format(room))[0][0]
 	owner = get(DB, "SELECT owner FROM rooms WHERE id='{0}'".format(room))[0][0]
-	occupants = str2obj(get(DB, "SELECT occupants FROM rooms WHERE id='{0}'".format(room))[0][0])
 	exits = str2obj(get(DB, "SELECT exits FROM rooms WHERE id='{0}'".format(room))[0][0])
 	items = str2obj(get(DB, "SELECT items FROM rooms WHERE id='{0}'".format(room))[0][0])
 	locked = get(DB, "SELECT locked FROM rooms WHERE id='{0}'".format(room))[0][0]
 
-	return {"name": name, "desc": desc, "owner": owner, "occupants": occupants,
-		"exits": exits, "items": items, "locked": locked}
+	return {"name": name, "desc": desc, "owner": owner, "exits": exits,
+		"items": items, "locked": locked}
 
 # Get player info by username.
 def playerstat(DB, player):
@@ -72,30 +71,17 @@ def playerstat(DB, player):
 
 	return {"name": name, "desc": desc, "online": online, "room": room}
 
-# Make player leave a room.
-def leaveroom(DB, room, player):
-	roominfo = roomstat(DB, room) # Get current room info.
-
-	if player in roominfo["occupants"]: # Remove player from room's occupants.
-		occu = roominfo["occupants"]
-		occu.remove(player)
-		occu = obj2str(occu)
-		put(DB, "UPDATE rooms SET occupants='{0}' WHERE id='{1}'".format(occu, room))
+# Get a list of room's occupants.
+def occupants(DB, room):
+	occupants = []
+	rows = get(DB, "SELECT username FROM players WHERE online='1' AND room='{0}'".format(room))
+	for row in rows:
+		occupants.append(row[0])
+	return occupants
 
 # Make player enter a room.
 def enterroom(DB, room, player):
-	roominfo = roomstat(DB, room) # Get new room info.
-
 	put(DB, "UPDATE players SET room='{0}' WHERE username='{1}'".format(room, player)) # Set new room.
-
-	occu = roominfo["occupants"] # Add player to new room's occupants.
-	occu.append(player)
-	occu = obj2str(occu)
-	put(DB, "UPDATE rooms SET occupants='{0}' WHERE id='{1}'".format(occu, room))
-
-# Make all players leave all rooms.
-def leaveall(DB):
-	put(DB, "UPDATE rooms SET occupants='gAJdcQAu'")
 
 # Create a new room.
 def newroom(DB, name, owner):
@@ -106,7 +92,7 @@ def newroom(DB, name, owner):
 			newid = rid[0]
 	newid += 1
 
-	put(DB, """INSERT INTO rooms (name, desc, owner, occupants, exits, items, id, locked) VALUES ('{0}', ' ', '{1}', 'gAJdcQAu', 'gAJ9cQAu', 'gAJdcQAu', '{2}', '1')""".format(name, owner, newid))
+	put(DB, """INSERT INTO rooms (name, desc, owner, exits, items, id, locked) VALUES ('{0}', ' ', '{1}', 'gAJ9cQAu', 'gAJdcQAu', '{2}', '1')""".format(name, owner, newid))
 
 	return newid
 

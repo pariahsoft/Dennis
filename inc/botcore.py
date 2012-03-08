@@ -13,7 +13,6 @@ DB = sqlite3.Connection # Convenient Hackery
 
 def sigint_handler(signum, frame): # Kick off all the users before killing the bot.
 	print "[{0}] Shutting down.".format(int(time.time()))
-	put(DB, "UPDATE rooms SET occupants='gAJdcQAu'") # Remove occupants from all rooms.
 	put(DB, "UPDATE players SET online='0'") # Set all users offline.
 	sys.exit(0)
 

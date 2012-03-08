@@ -10,7 +10,6 @@ rooms:= name, desc, owner, occupants, exits, items, id, locked
 	name:= Average Room
 	desc:= Just your average boring room.
 	owner:= seisatsu
-	occupants:= ["seisatsu", "someguy"] (BASE64)
 	exits:= {"north": 12, "east": 18} (BASE64)
 	items:= [{"name": "Ye Flask", "desc": "You cannot look at ye flask."}] (BASE64)
 	id:= 0
@@ -30,8 +29,8 @@ players:= username, name, desc, online, room
 ## Rooms Table ##
 # Structure of the rooms table. Changing this will break the software.
 rtable = """CREATE TABLE IF NOT EXISTS rooms
-         (name TEXT, desc TEXT, owner TEXT, occupants TEXT,
-         exits TEXT, items TEXT, id INTEGER, locked INTEGER)"""
+         (name TEXT, desc TEXT, owner TEXT, exits TEXT,
+         items TEXT, id INTEGER, locked INTEGER)"""
 
 ## Players Table ##
 # Structure of the players table. Changing this will break the software.
@@ -41,10 +40,10 @@ ptable = """CREATE TABLE IF NOT EXISTS players
 
 ## Initial Room ##
 # This is the initial room where all players start. The query contains magic.
-initroom = """INSERT INTO rooms (name, desc, owner, occupants,
-           exits, items, id, locked) VALUES ('Initial Room',
-           'The first room to exist.', '/root/', 'gAJdcQAu',
-           'gAJ9cQAu', 'gAJdcQAu', '0', '0')"""
+initroom = """INSERT INTO rooms (name, desc, owner, exits,
+           items, id, locked) VALUES ('Initial Room',
+           'The first room to exist.', '/root/', 'gAJ9cQAu',
+           'gAJdcQAu', '0', '0')"""
 
 ## Root Player ##
 # This is a nonexistent player who owns the initial room.

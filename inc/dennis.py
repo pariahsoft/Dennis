@@ -138,7 +138,7 @@ def C_JOIN(S, DB, sender, args):
 		announce_room(S, DB, roomid, "{0} entered the room.".format(playerinfo["name"]))
 
 	else: # Bad login.
-		send(S, sender, "Your password was incorrect.")
+		send(S, sender, "Incorrect password for registered player.")
 
 ## QUIT COMMAND ##
 
@@ -150,7 +150,6 @@ def C_QUIT(S, DB, sender, args):
 	setonline(DB, sender, 0)
 
 	roomid = getroom(DB, sender)
-	leaveroom(DB, roomid, sender) # Remove player from their room.
 
 	playerinfo = playerstat(DB, sender)
 	send(S, sender, "Goodbye, {0}.".format(playerinfo["name"])) # Say goodbye.
@@ -253,7 +252,7 @@ def C_LOOK(S, DB, sender, args):
 			send(S, sender, "The room contains {0}".format(body))
 
 		# OCCUPANTS #
-		occu = roominfo["occupants"]
+		occu = occupants(DB, roomid)
 		body = "" # Build occupant list.
 		if sender in occu:
 			occu.remove(sender)
@@ -288,7 +287,7 @@ def C_LOOK(S, DB, sender, args):
 				send(S, sender, "{0}".format(item["desc"]))
 				return
 
-		for occupant in roominfo["occupants"]: # Occupants
+		for occupant in occupants(DB, roomid): # Occupants
 			playerinfo = playerstat(DB, occupant)
 			if " ".join(args).lower() == playerinfo["name"].lower() or " ".join(args).lower() == occupant:
 				send(S, sender, "{0} ({1})".format(playerinfo["name"], occupant))
@@ -323,8 +322,6 @@ def C_GO(S, DB, sender, args):
 
 	else:
 		if " ".join(args).lower() in roominfo["exits"].keys():
-			leaveroom(DB, roomid, sender)# Leave current room.
-
 			playerinfo = playerstat(DB, sender) # Announce player's exit.
 			announce_room(S, DB, roomid, "{0} exited {1}.".format(playerinfo["name"], " ".join(args).lower()))
 
@@ -638,7 +635,6 @@ def C_TP(S, DB, sender, args):
 
 		if len(test):
 			try:
-				leaveroom(DB, roomid, sender) # Leave this room.
 				announce_room(S, DB, roomid, "{0} teleported out of the room.".format(playerinfo["name"]))
 				enterroom(DB, int(args[0]), sender) # Join new room.
 				announce_room(S, DB, int(args[0]), "{0} teleported into the room.".format(playerinfo["name"]))
