@@ -16,3 +16,6 @@ Quickstart:
 * Run "run.py" in your console.
 * Private message "help" to the bot.
 
+Planned Features:
+* Documentation.
+* Custom actions for exits. For example, "Player went east" or "Player woke up".

@@ -335,7 +335,7 @@ def C_GO(S, DB, sender, args):
 	else:
 		if " ".join(args).lower() in roominfo["exits"].keys():
 			playerinfo = playerstat(DB, sender) # Announce player's exit.
-			announce_room(S, DB, roomid, "{0} exited {1}.".format(playerinfo["name"], " ".join(args).lower()))
+			announce_room(S, DB, roomid, "{0} used exit {1}.".format(playerinfo["name"], " ".join(args).lower()))
 
 			enterroom(DB, roominfo["exits"][" ".join(args).lower()], sender) # Enter new room.
 			
