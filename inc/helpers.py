@@ -17,7 +17,7 @@ maxname = 32
 allowednamechars = string.ascii_letters + string.digits + string.punctuation + string.whitespace
 
 # Characters disallowed in a name. (blacklist)
-badnamechars = "{}[]<>()|\\*"
+badnamechars = "{}[]<>()|\\*,"
 
 ### Helper Functions ###
 

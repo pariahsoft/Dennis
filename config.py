@@ -14,6 +14,6 @@ config = {
 	"server"    : ["authadeia.datnode.net", 6667, ""], # Server to join.
 	
 	# [["CHANNEL", "PASS"], ["CHANNEL, "PASS"]]
-	"channels"  : [] # Channels to join.
+	"channels"  : []#[["#uboachan", ""], ["#animu", ""], ["#hacking", ""]] # Channels to join.
 }
 

@@ -212,7 +212,11 @@ def C_LOOK(S, DB, sender, args):
 	if len(args) == 0: # Look at the room.
 		send(S, sender, "{0} ({1})".format(roominfo["name"], roomid))
 		send(S, sender, "-----")
-		send(S, sender, "{0}".format(roominfo["desc"]))
+		desc = roominfo["desc"].split("\n")
+		for n, dmsg in enumerate(desc):
+			send(S, sender, dmsg)
+			if n < len(desc) - 1:
+				send(S, sender, " ")
 		send(S, sender, "-----")
 
 		# EXITS #
@@ -284,7 +288,11 @@ def C_LOOK(S, DB, sender, args):
 			if " ".join(args).lower() == item["name"].lower():
 				send(S, sender, "{0} ({1})".format(item["name"], str(n)))
 				send(S, sender, "-----")
-				send(S, sender, "{0}".format(item["desc"]))
+				desc = item["desc"].split("\n")
+				for n, dmsg in enumerate(desc):
+					send(S, sender, dmsg)
+					if n < len(desc) - 1:
+						send(S, sender, " ")
 				return
 
 		for occupant in occupants(DB, roomid): # Occupants
@@ -292,7 +300,11 @@ def C_LOOK(S, DB, sender, args):
 			if " ".join(args).lower() == playerinfo["name"].lower() or " ".join(args).lower() == occupant:
 				send(S, sender, "{0} ({1})".format(playerinfo["name"], occupant))
 				send(S, sender, "-----")
-				send(S, sender, "{0}".format(playerinfo["desc"]))
+				desc = playerinfo["desc"].split("\n")
+				for n, dmsg in enumerate(desc):
+					send(S, sender, dmsg)
+					if n < len(desc) - 1:
+						send(S, sender, " ")
 				return
 
 		send(S, sender, "I don't see {0} here.".format(" ".join(args)))
@@ -375,7 +387,12 @@ def C_SELF(S, DB, sender, args):
 				send(S, sender, "Invalid name.")
 
 		elif args[1].lower() == "desc": # Set description.
-			put(DB, "UPDATE players SET desc='{0}' WHERE username='{1}'".format(E(" ".join(args[2:])), sender))
+			if args[2].startswith("\\\\"): # Append for long description.
+				curr = get(DB, "SELECT desc FROM players WHERE username='{0}'".format(sender))
+				newdesc = "{0}\n{1}".format(curr[0][0], E(" ".join(args[2:])[2:]))
+				put(DB, "UPDATE players SET desc='{0}' WHERE username='{1}'".format(newdesc, sender))
+			else:
+				put(DB, "UPDATE players SET desc='{0}' WHERE username='{1}'".format(E(" ".join(args[2:])), sender))
 			send(S, sender, "Description updated.")
 		else:
 			C_HELP(S, DB, sender, ["self set"])
@@ -423,7 +440,12 @@ def C_ROOM(S, DB, sender, args):
 					send(S, sender, "Invalid name.")
 
 			elif args[1].lower() == "desc": # Set description.
-				put(DB, "UPDATE rooms SET desc='{0}' WHERE id='{1}'".format(E(" ".join(args[2:])), roomid))
+				if args[2].startswith("\\\\"): # Append for long description.
+					curr = get(DB, "SELECT desc FROM rooms WHERE id='{0}'".format(roomid))
+					newdesc = "{0}\n{1}".format(curr[0][0], E(" ".join(args[2:])[2:]))
+					put(DB, "UPDATE rooms SET desc='{0}' WHERE id='{1}'".format(newdesc, roomid))
+				else:
+					put(DB, "UPDATE rooms SET desc='{0}' WHERE id='{1}'".format(E(" ".join(args[2:])), roomid))
 				send(S, sender, "Description updated.")
 
 			elif args[1].lower() == "lock": # Set lock flag.
@@ -594,7 +616,12 @@ def C_ITEM(S, DB, sender, args):
 			elif args[2].lower() == "desc": # Update the description.
 				try:
 					items = roominfo["items"]
-					items[int(args[1])]["desc"] = " ".join(args[3:])
+					if args[3].startswith("\\\\"): # Append for long description.
+						curr = items[int(args[1])]["desc"]
+						newdesc = "{0}\n{1}".format(curr[0][0], " ".join(args[3:])[2:])
+						items[int(args[1])]["desc"] = newdesc
+					else:
+						items[int(args[1])]["desc"] = " ".join(args[3:])
 					put(DB, "UPDATE rooms SET items='{0}' WHERE id='{1}'".format(obj2str(items), roomid))
 					send(S, sender, "Description updated.")
 				except (ValueError, IndexError):
