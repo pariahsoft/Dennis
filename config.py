@@ -11,9 +11,9 @@ config = {
 	"retryrate" : 3, # Connection Retry Rate in Seconds
 
 	# ["HOST", PORT, "SERVPASS"]
-	"server"    : ["authadeia.datnode.net", 6667, ""], # Server to join.
+	"server"    : ["irc.somenetwork.net", 6667, ""], # Server to join.
 	
 	# [["CHANNEL", "PASS"], ["CHANNEL, "PASS"]]
-	"channels"  : []#[["#uboachan", ""], ["#animu", ""], ["#hacking", ""]] # Channels to join.
+	"channels"  : [["#somechannel", ""]] # Channels to join.
 }
 
