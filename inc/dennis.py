@@ -55,7 +55,7 @@ help = [
 
 def process(S, DB, line, nick):
 	global info
-	
+
 	for char in line:
 		if not char in string.printable: # Ignore weird characters.
 			line = line.replace(char, "")
@@ -335,10 +335,10 @@ def C_GO(S, DB, sender, args):
 	else:
 		if " ".join(args).lower() in roominfo["exits"].keys():
 			playerinfo = playerstat(DB, sender) # Announce player's exit.
-			announce_room(S, DB, roomid, "{0} used exit {1}.".format(playerinfo["name"], " ".join(args).lower()))
+			announce_room(S, DB, roomid, "{0} used exit \"{1}\".".format(playerinfo["name"], " ".join(args).lower()))
 
 			enterroom(DB, roominfo["exits"][" ".join(args).lower()], sender) # Enter new room.
-			
+
 			roomid = roominfo["exits"][" ".join(args).lower()]
 			announce_room(S, DB, roomid, "{0} entered the room.".format(playerinfo["name"])) # Announce entrance.
 
@@ -475,7 +475,7 @@ def C_ROOM(S, DB, sender, args):
 				for exit in room[0]:
 					if room[0][exit] == roomid:
 						del rooms[n][0][exit]
-			
+
 			for room in rooms: # Delete exits from database.
 				put(DB, "UPDATE rooms SET exits='{0}' WHERE id='{1}'".format(obj2str(room[0]), room[1]))
 			put(DB, "UPDATE rooms SET name='{0}' WHERE id='{1}'".format(roominfo["name"]+" (UNLINKED)", roomid)) # Mark room unlinked.
@@ -556,7 +556,7 @@ def C_MKITEM(S, DB, sender, args):
 
 		if roominfo["owner"] == sender or roominfo["locked"] == 0: # Do we have permission to modify an item?
 			for item in roominfo["items"]: # Check if the item exists.
-				if " ".join(args[3:]).lower() == item["name"].lower():
+				if " ".join(args).lower() == item["name"].lower():
 					send(S, sender, "An item by that name already exists.")
 					return
 
@@ -575,7 +575,7 @@ def C_ITEM(S, DB, sender, args):
 	roominfo = roomstat(DB, roomid)
 
 	if len(args) == 0:
-		body = "" 
+		body = ""
 
 		for n, item in enumerate(roominfo["items"]): # Build item list.
 			if len(roominfo["items"]) == 1:

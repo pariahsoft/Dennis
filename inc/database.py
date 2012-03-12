@@ -60,11 +60,11 @@ def opendb(dbname):
 	C.execute(ptable)
 	conn.commit()
 	C.close()
-	
+
 	chk = get(conn, "SELECT * FROM rooms WHERE id='0'") # Check if initial room exists.
 	if not len(chk): # Create initial room.
 		put(conn, initroom)
-	
+
 	chk = get(conn, "SELECT * FROM players WHERE username='/root/'") # Check if root player exists.
 	if not len(chk): # Create root player.
 		put(conn, rootplayer)

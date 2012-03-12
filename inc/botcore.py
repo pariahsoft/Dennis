@@ -89,7 +89,7 @@ def run(CONFIG):
 
 	socket.setdefaulttimeout(conf["timeout"])
 	S = socket.socket()
-	
+
 	print "[{0}] Starting up.".format(int(time.time()))
 
 	if not connect(S): # Connection failed.
