@@ -389,7 +389,7 @@ def C_SELF(S, DB, sender, args):
 		elif args[1].lower() == "desc": # Set description.
 			if args[2].startswith("\\\\"): # Append for long description.
 				curr = get(DB, "SELECT desc FROM players WHERE username='{0}'".format(sender))
-				newdesc = "{0}\n{1}".format(curr[0][0], E(" ".join(args[2:])[2:]))
+				newdesc = "{0}\n{1}".format(E(curr[0][0]), E(" ".join(args[2:])[2:]))
 				put(DB, "UPDATE players SET desc='{0}' WHERE username='{1}'".format(newdesc, sender))
 			else:
 				put(DB, "UPDATE players SET desc='{0}' WHERE username='{1}'".format(E(" ".join(args[2:])), sender))
@@ -442,7 +442,7 @@ def C_ROOM(S, DB, sender, args):
 			elif args[1].lower() == "desc": # Set description.
 				if args[2].startswith("\\\\"): # Append for long description.
 					curr = get(DB, "SELECT desc FROM rooms WHERE id='{0}'".format(roomid))
-					newdesc = "{0}\n{1}".format(curr[0][0], E(" ".join(args[2:])[2:]))
+					newdesc = "{0}\n{1}".format(E(curr[0][0]), E(" ".join(args[2:])[2:]))
 					put(DB, "UPDATE rooms SET desc='{0}' WHERE id='{1}'".format(newdesc, roomid))
 				else:
 					put(DB, "UPDATE rooms SET desc='{0}' WHERE id='{1}'".format(E(" ".join(args[2:])), roomid))
