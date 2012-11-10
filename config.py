@@ -1,19 +1,64 @@
-# Adventure Bot "Dennis" Configuration File
+############################
+## Adventure Bot "Dennis" ##
+## config.py              ##
+############################
 
-# Edit this before using.
-config = {
-	"nick"      : "[OSDG]Dennis", # Nickname
-	"user"      : "dennis",  # Username
-	"real"      : "Dennis Alpha", # Realname
-	"nickpass"  : "nspassword", # Nickserv Password
-	"worldfile" : "world.db", # World Database File
-	"timeout"   : 5, # Connection Timeout in Seconds
-	"retryrate" : 3, # Connection Retry Rate in Seconds
+#############################
+# Dennis Configuration File #
+#############################
 
-	# ["HOST", PORT, "SERVPASS"]
-	"server"    : ["irc.somenetwork.net", 6667, ""], # Server to join.
+#####
+# Nickname
+##########
+nick = "[OSDG]Dennis"
+##########
 
-	# [["CHANNEL", "PASS"], ["CHANNEL, "PASS"]]
-	"channels"  : [["#dennis", ""]] # Channels to join.
-}
+#####
+# Username
+##########
+user = "dennis"
+##########
+
+#####
+# Realname
+##########
+real = "Dennis Alpha"
+##########
+
+#####
+# Nickserv Password
+##########
+nickpass = ""
+##########
+
+#####
+# Connection Timeout in Seconds
+##########
+timeout = 5
+
+#####
+# Connection Retry Rate in Seconds
+##########
+retryrate = 3
+##########
+
+#####
+# Server to Join
+# ["HOST", PORT, "SERVPASS"]
+##########
+server = ["opsimathia.datnode.net", 6667, ""]
+##########
+
+#####
+# Channels to Join
+# [["CHANNEL", "PASS"], ["CHANNEL, "PASS"]]
+##########
+channels = [["#dennis", ""]]
+##########
+
+#####
+# World Database File
+##########
+worldfile = "world.db"
+##########
 

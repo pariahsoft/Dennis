@@ -1,9 +1,12 @@
 Adventure Bot "Dennis"
+Copyright (c) 2012 Michael D. Reiley <mreiley@omegasdg.com>
 http://wiki.omegasdg.com/index.php?title=Dennis
+
+Released under the MIT/Expat License.
 
 Dennis is a Python IRC bot which hosts a multiplayer, sandbox text adventure. It uses a private message console system to facilitate interaction between players, and a customizable world. Players can add and edit rooms and scenery, and talk to each other as they build and explore. There are no monsters, no scripted events, and no inventories; the emphasis is on scenery, exploration, and interaction.
 
-Has something like this been done before? I'm not sure. It certainly has been now. IRC has been around since 1988, and text adventures have existed much longer. What happens when you combine two ancient, time-proven constructs?
+Has something like this been done before? I'm not sure. IRC has been around since 1988, and text adventures have existed much longer. What happens when you combine two ancient, time-proven constructs?
 
 Something awesome.
 
@@ -11,11 +14,20 @@ I realized one day that the simplicity and structure of IRC make it a perfect me
 
 This is alpha software. It's guaranteed to run, not to work. It's probably full of bugs, and useless or vestigial code, and the only documentation is in the source. In addition, the database structure is subject to change. Test at your own risk.
 
-Quickstart:
+Usage:
 * Edit config.py to your liking.
-* Run "run.py" in your console.
+* Run "dennis.py" in your console.
 * Private message "help" to the bot.
+
+File List:
+* dennis.py : Main Program
+* config.py : User Configuration
+* console.py : Console Handling
+* database.py : SQLite Database Handling
+* helpers.py : Helper Functions
+* commands/*.py: Command Modules
 
 Planned Features:
 * Documentation.
 * Custom actions for exits. For example, "Player went east" or "Player woke up".
+
