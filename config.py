@@ -46,14 +46,14 @@ retryrate = 3
 # Server to Join
 # ["HOST", PORT, "SERVPASS"]
 ##########
-server = ["opsimathia.datnode.net", 6667, ""]
+server = ["irc.somenetwork.net", 6667, ""]
 ##########
 
 #####
 # Channels to Join
 # [["CHANNEL", "PASS"], ["CHANNEL, "PASS"]]
 ##########
-channels = [["#dennis", ""]]
+channels = [["#channel", ""]]
 ##########
 
 #####
