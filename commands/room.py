@@ -71,6 +71,17 @@ def C_ROOM(S, DB, sender, args):
 				else:
 					send(S, sender, "Only the owner can lock or unlock a room.")
 
+			elif args[1].lower() == "owner": # Change room ownership.
+				if roominfo["owner"] == sender: # Do we currently own the room?
+					check = get(DB, "SELECT username FROM players WHERE username='{0}'".format(args[2].lower()))
+					if check:
+						put(DB, "UPDATE rooms SET owner='{0}' WHERE id='{1}'".format(args[2].lower(), roomid))
+						send(S, sender, "Room ownership given to {0}.".format(args[2].lower()))
+					else:
+						send(S, sender, "User \"{0}\" does not exist.".format(args[2].lower()))
+				else:
+					send(S, sender, "Only the owner can change ownership of a room.")
+
 			else:
 				C_HELP(S, DB, sender, ["room set"])
 		else:

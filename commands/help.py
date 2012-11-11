@@ -66,7 +66,7 @@ help_entries = [
 	["self SET", "self SET name|desc <text>", "Set your own name or description."],
 	["mkroom", "mkroom <name>", "Create a new named room and return its ID."],
 	["room", "room", "Look at the current room."],
-	["room SET", "room SET name|desc|lock <text>", "Set current room's name, description, or lock flag."],
+	["room SET", "room SET name|desc|lock|owner <text>", "Set current room's name, description, lock flag, or owner."],
 	["room UNLINK", "room UNLINK", "Remove all exits to the current room. Must be room owner."],
 	["exit", "exit", "List the current room's exits."],
 	["exit SET", "exit SET <id> <name>", "Create named exit in current room to specified room ID."],

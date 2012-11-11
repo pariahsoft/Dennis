@@ -27,7 +27,3 @@ File List:
 * helpers.py : Helper Functions
 * commands/*.py: Command Modules
 
-Planned Features:
-* Documentation.
-* Custom actions for exits. For example, "Player went east" or "Player woke up".
-
