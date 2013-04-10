@@ -1,8 +1,8 @@
-######################################
-## Adventure Bot "Dennis"           ##
-## commands/list.py                 ##
-## Copyright 2012 Michael D. Reiley ##
-######################################
+###################################
+## Adventure Bot "Dennis"        ##
+## commands/list.py              ##
+## Copyright 2013 PariahSoft LLC ##
+###################################
 
 ## **********
 ## Permission is hereby granted, free of charge, to any person obtaining a copy 

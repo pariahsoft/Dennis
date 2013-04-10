@@ -1,6 +1,6 @@
 Adventure Bot "Dennis"
-Copyright (c) 2012 Michael D. Reiley <mreiley@omegasdg.com>
-http://wiki.omegasdg.com/index.php?title=Dennis
+Copyright (c) 2013 PariahSoft LLC
+http://wiki.pariahsoft.com/index.php?title=Dennis
 
 Released under the MIT/Expat License.
 
