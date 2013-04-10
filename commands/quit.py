@@ -1,8 +1,8 @@
-###################################
-## Adventure Bot "Dennis"        ##
-## commands/quit.py              ##
-## Copyright 2013 PariahSoft LLC ##
-###################################
+########################################
+## Adventure Bot "Dennis"             ##
+## commands/quit.py                   ##
+## Copyright 2012-2013 PariahSoft LLC ##
+########################################
 
 ## **********
 ## Permission is hereby granted, free of charge, to any person obtaining a copy 
